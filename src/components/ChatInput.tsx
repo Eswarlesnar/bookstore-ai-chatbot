@@ -68,14 +68,14 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
     })
 
      return <div {...props} className= {cn("border-t border-gray-300 bottom-8", className)}>
-        <div className="mt-4 absolute bottom-0 flex flex-1 overflow-hidden rounded-lg border-none px-2 w-full">
+        <div className="mt-4  bottom-0 flex flex-1 overflow-hidden rounded-lg border-none px-2 w-full">
           <TextareaAutosize 
             minRows={2} 
             maxRows={5}
             autoFocus
             value = {input}
             onChange = { e => setInput(e.target.value) }
-            placeholder="inkenduku late edoti adugu"
+            placeholder="Chat with ai bot"
             className="peer disabled:opacity-50 resize-none block  w-full h-full border-0 bg-zinc-200 w-11/12
              text-gray-900 focus:ring-0 leading-tight outline-none rounded-xl pt-2.5 mx-auto px-2 my-2 bottom-0"
             onKeyDown={ (e) => { 

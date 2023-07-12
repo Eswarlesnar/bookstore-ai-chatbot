@@ -1,5 +1,5 @@
 const ChatHeader = () => {
-    return <div className="w-full flex gap-3 justify-start items-center text-zinc-300 text-black">
+    return <div className="w-full flex gap-3 justify-start items-center text-zinc-500 ">
         <div className="flex flex-col items-start text-sm no-underline">
             <p className="text-xs">chat with</p>
             <div className="flex gap-1.5 items-center">
