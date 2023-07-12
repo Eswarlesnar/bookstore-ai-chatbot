@@ -7,6 +7,7 @@ import TextareaAutosize from "react-textarea-autosize"
 import {useMutation} from "@tanstack/react-query"
 import {nanoid} from "nanoid"
 import { messageContext } from "@/context/messages"
+import { useToast } from "./ui/use-toast"
 
 
 interface Message{
@@ -22,7 +23,8 @@ interface ChatInputProps extends HTMLAttributes<HTMLDivElement> {
 
 const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
     const [input , setInput] = useState<string>("")
-    const {messages , addMessage , updateMessage , setIsMessageUpdating } = useContext(messageContext)
+    const {messages , addMessage , updateMessage , setIsMessageUpdating , removeMessage } = useContext(messageContext)
+    const {toast} = useToast()
     const {mutate: sendMessage ,  isLoading} = useMutation({
         mutationFn : async (message : Message) => {
             console.log("hello")
@@ -65,12 +67,22 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
 
             setIsMessageUpdating(false)
             setInput("")
-        } 
+        }, 
+        onError : ( error , message) => {
+          toast({
+            variant : "destructive",
+            title: "Error",
+            description: "Failed to get a response",
+          })
+          removeMessage(message.id)
+          
+        }
     })
 
      return <div {...props} className= {cn("border-t border-gray-100 bottom-8", className)}>
         <div className="relative mt-4 bottom-0 flex flex-1 overflow-hidden rounded-lg border-none px-2 w-full">
           <TextareaAutosize 
+            disabled = {isLoading}
             minRows={2} 
             maxRows={5}
             autoFocus
