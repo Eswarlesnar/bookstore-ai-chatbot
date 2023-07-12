@@ -6,7 +6,7 @@ import TextareaAutosize from "react-textarea-autosize"
 import {useMutation} from "@tanstack/react-query"
 import {nanoid} from "nanoid"
 import { messageContext } from "@/context/messages"
-// import  { MessageSchema } from "@/lib/validators/message"
+
 
 interface Message{
   id : string , 

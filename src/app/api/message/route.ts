@@ -7,7 +7,6 @@ import { MessageArraySchema } from "@/lib/validators/message"
 export async function POST(req : Request) {
     
     const {messages} = await req.json()
-    console.log(messages)
     const parsedMessages = MessageArraySchema.parse(messages)
     const outboundMessages : ChatGPTMessage[] = parsedMessages.map((message : any) => ({
        role : message.isUserInput ? "user" : "system",
@@ -19,7 +18,7 @@ export async function POST(req : Request) {
     })
 
 
-    const payload: OpenAIStreamPayload = {
+    const payload: OpenAIStreamPayload = {    //chatgptapiconfig
         model: 'gpt-3.5-turbo',
         messages: outboundMessages,
         temperature: 0.4,
@@ -33,6 +32,6 @@ export async function POST(req : Request) {
 
     const stream =await OpenAIStream(payload)
 
-    return new Response(stream)
+    return new Response(stream)   //returnas a readable stream
     
 }
