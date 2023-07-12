@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { HTMLAttributes, useContext, useState } from "react"
+import { CornerDownLeft, Loader2 } from 'lucide-react'
 import TextareaAutosize from "react-textarea-autosize"
 import {useMutation} from "@tanstack/react-query"
 import {nanoid} from "nanoid"
@@ -21,7 +22,7 @@ interface ChatInputProps extends HTMLAttributes<HTMLDivElement> {
 
 const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
     const [input , setInput] = useState<string>("")
-    const {messages , addMessage , updateMessage , setIsMessageUpdating} = useContext(messageContext)
+    const {messages , addMessage , updateMessage , setIsMessageUpdating } = useContext(messageContext)
     const {mutate: sendMessage ,  isLoading} = useMutation({
         mutationFn : async (message : Message) => {
             console.log("hello")
@@ -67,8 +68,8 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
         } 
     })
 
-     return <div {...props} className= {cn("border-t border-gray-300 bottom-8", className)}>
-        <div className="mt-4  bottom-0 flex flex-1 overflow-hidden rounded-lg border-none px-2 w-full">
+     return <div {...props} className= {cn("border-t border-gray-100 bottom-8", className)}>
+        <div className="relative mt-4 bottom-0 flex flex-1 overflow-hidden rounded-lg border-none px-2 w-full">
           <TextareaAutosize 
             minRows={2} 
             maxRows={5}
@@ -90,6 +91,19 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
                 }   
             }}
           />
+
+        <div className='absolute inset-y-0 right-0 flex py-1.5 pr-1.5 top-3 right-3'>
+          {isLoading ? (
+                <Loader2 className='w-5 h-5 animate-spin' />
+              ) : (
+                <CornerDownLeft className='w-5 h-5' />
+          )}
+        </div>
+
+        <div
+          className='absolute inset-x-0 bottom-0 border-t border-gray-300 peer-focus:border-t-2 peer-focus:border-indigo-600'
+          aria-hidden='true'
+        />
         </div>
      </div>
 }

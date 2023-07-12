@@ -11,7 +11,7 @@ interface ChatMessageProps extends HTMLAttributes<HTMLDivElement>{
 
 const ChatMessages:FC<ChatMessageProps> = ({className}) => {
     const {messages} = useContext(messageContext)
-    const inverseMessages = [...messages].reverse()
+    // const inverseMessages = [...messages].reverse()
 
     return <div className={cn("flex flex-col-reverse gap-3 overflow-y-auto scrollbar-thumb-blue scrolbar-thumb-rounded", 
     "scrollbar-track-blue-lighter scrolling-touch h-96 pt-2" , )}
@@ -22,7 +22,7 @@ const ChatMessages:FC<ChatMessageProps> = ({className}) => {
                     return <div key ={message.id} className={cn("flex items-end" , {
                         "justify-end" : message.isUserInput
                     })}>
-                        <div className={cn("flex flex-col space-y-2 text-sm max-w-xs mx-2 overflow-x-hidden rounded-xl p-2", {
+                        <div className={cn("flex flex-col space-y-2 text-sm max-w-xs mx-3 overflow-x-hidden rounded-xl p-2", {
                             'bg-blue-600 text-white' :message.isUserInput,
                             'bg-gray-200 text-gray-900' : !message.isUserInput
                         })}>
@@ -31,9 +31,7 @@ const ChatMessages:FC<ChatMessageProps> = ({className}) => {
                     </div>
                 })
             }
-
         </div>
-
     </div>
 }
 
