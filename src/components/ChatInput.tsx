@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { HTMLAttributes, useContext, useState } from "react"
+import { HTMLAttributes, useContext, useRef, useState } from "react"
 import { CornerDownLeft, Loader2 } from 'lucide-react'
 import TextareaAutosize from "react-textarea-autosize"
 import {useMutation} from "@tanstack/react-query"
@@ -25,6 +25,7 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
     const [input , setInput] = useState<string>("")
     const {messages , addMessage , updateMessage , setIsMessageUpdating , removeMessage } = useContext(messageContext)
     const {toast} = useToast()
+    const textArearef = useRef<HTMLTextAreaElement>(null)
     const {mutate: sendMessage ,  isLoading} = useMutation({
         mutationFn : async (message : Message) => {
             console.log("hello")
@@ -67,6 +68,9 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
 
             setIsMessageUpdating(false)
             setInput("")
+            setTimeout(() => {
+              textArearef.current?.focus()
+            },30)
         }, 
         onError : ( error , message) => {
           toast({
@@ -75,7 +79,6 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
             description: "Failed to get a response",
           })
           removeMessage(message.id)
-          
         }
     })
 
@@ -83,6 +86,7 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
         <div className="relative mt-4 bottom-0 flex flex-1 overflow-hidden rounded-lg border-none px-2 w-full">
           <TextareaAutosize 
             disabled = {isLoading}
+            ref = {textArearef}
             minRows={2} 
             maxRows={5}
             autoFocus

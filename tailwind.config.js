@@ -11,8 +11,13 @@ module.exports = {
     container: {
       center: true,
       padding: "2rem",
+      height : {
+        "500" :"800px"
+      },
       screens: {
         "2xl": "1400px",
+        "xs" : "450px",
+        'sm': { 'max': '640px' } ,
       },
     },
     extend: {
