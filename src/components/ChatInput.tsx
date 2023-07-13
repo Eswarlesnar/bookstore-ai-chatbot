@@ -28,7 +28,7 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
     const textArearef = useRef<HTMLTextAreaElement>(null)
     const {mutate: sendMessage ,  isLoading} = useMutation({
         mutationFn : async (message : Message) => {
-            console.log("hello")
+           
             const response =  await fetch("/api/message" , {
                 method : "POST" ,
                 headers : {
@@ -41,7 +41,7 @@ const ChatInput : React.FC<ChatInputProps> = ({className  ,  ...props}) => {
         onMutate : (message) => {
           addMessage(message)
         },
-        onSuccess : async (stream) => { console.log("success")
+        onSuccess : async (stream) => { 
             if(!stream){
               throw new Error("No stream found")
             }
